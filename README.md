@@ -33,7 +33,7 @@ Put the script in a Cron job and run it every 15 minutes.
 
 # Custom adaptions
 
-You may want to adapt `get_clean_status` to your needs. This function fetches the tweet in HTML and filters the content. It currently extracts raw URLs, removes `pic.twitter.com` links (images are added via upload) as well as video URLs and adds a "RT" in front of retweets that are not included in the status message extract
+You may want to adapt `get_clean_status` to your needs. This function fetches the tweet in HTML and filters the content. It currently extracts raw URLs, removes `pic.twitter.com` links (images are added via upload) as well as video URLs and adds a "RT" in front of retweet URLs whose content though is not added to the status.
 
 # Caveats
 
