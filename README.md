@@ -1,6 +1,9 @@
 # twt2toot
 
-This script synchronizes Tweets over to a Fediverse account, for instance on Mastodon.
+This script synchronizes Tweets over to a Fediverse account, for instance on Mastodon. 
+
+Install required libraries like this:
+`pip3 install requests mastodon.py`
 
 ```
 usage: twt2toot.py [-h] -t TWITTERHANDLE -a ACCESSTOKEN -i INSTANCE [-r RSSBRIDGE] [-d]
@@ -25,10 +28,6 @@ On Mastodon, navigate to *Preferences -> Development* and click on *New applicat
 The script will synchronize a batch of tweets initially and store the last synced tweet in a cache file. After the next run, the script will push only new tweets over.
 
 If you want to see first what will be pushed you can do a `--dryrun` which will not post anything, only pull and present the data that will by synced.
-
-# Ussage & Requirements
-
-`pip3 install requests mastodon.py`
 
 Put the script in a Cron job and run it every 15 minutes.
 
