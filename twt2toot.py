@@ -165,8 +165,7 @@ def sync_tweets(twitter_username, rss_bridge_instance, mastodon_access_token, ma
 
             if not is_test_run:
                 post_status(mast, status, media_ids)
-
-            latest_synced_id = post_id
+                latest_synced_id = post_id
 
     store_latest_id(latest_synced_id)
     print("All synced")
