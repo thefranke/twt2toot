@@ -38,5 +38,5 @@ You may want to adapt `get_clean_status` to your needs. This function fetches th
 # Caveats
 
 * Currently only posts images, as `mastodon.py` cannot post both videos and images in the same status.
-* Cannot detect deleted tweets and remove them
-* Only processes quote tweets, not pure retweets
+* Cannot detect deleted tweets and remove them.
+* Only processes quote tweets, not pure retweets.
