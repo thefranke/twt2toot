@@ -10,19 +10,24 @@ import argparse
 import requests
 import mastodon
 
-# cache directory
-cache_dir="cache"
+def get_cache_dir():
+    home_dir = os.path.expanduser("~")
+    cache_dir = ".cache/twt2toot"
 
-# sync file which stores last syncronized id
-sync_file="%s/%s" % (cache_dir, "sync.json")
-
-# load last synced id from cache
-def load_latest_id():
     # make sure cache directory exists
     try:
         os.makedirs(cache_dir)
     except:
         pass
+
+    return "%s/%s" % (home_dir, cache_dir)
+
+def get_sync_file():
+    return "%s/%s" % (get_cache_dir(), "sync.json")
+
+# load last synced id from cache
+def load_latest_id():
+    sync_file = get_sync_file()
 
     j = {}
     try:
@@ -37,13 +42,15 @@ def load_latest_id():
 def store_latest_id(tweet_id):
     j = { "synced_until": tweet_id }
 
+    sync_file = get_sync_file()
+
     with open(sync_file, "w") as out_file:
         json.dump(j, out_file, indent=2)
 
 # download a file to a local cache directory and return local filename
 def download_media(url):
     basename = url.split("?")[0].split("/")[-1]
-    basename = "%s/%s" % (cache_dir, basename)
+    basename = "%s/%s" % (get_cache_dir(), basename)
     response = requests.get(url, allow_redirects=True)
 
     with open(basename, "wb") as f:
