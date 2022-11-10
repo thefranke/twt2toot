@@ -136,16 +136,14 @@ def post_status(mast, status, media_ids):
 def sync_tweets(twitter_username, rss_bridge_instance, mastodon_access_token, mastodon_instance, is_test_run):
     latest_synced_id = load_latest_id()
 
+    print("Last synced tweet:", latest_synced_id)
+
     # pull data for twitter handle
     feed_url = "%s/?action=display&bridge=Twitter&context=By+username&u=%s&norep=on&nopinned=on&format=Json" % (rss_bridge_instance, twitter_username)
     feed = requests.get(feed_url).json()
 
     # connect to mastodon
     mast = mastodon.Mastodon(access_token=mastodon_access_token, api_base_url=mastodon_instance)
-
-    # run as if it were a new sync
-    if is_test_run:
-        latest_synced_id = 0
 
     # go through every tweet and re-upload
     for f in reversed(feed.get("items", [])):
@@ -174,8 +172,9 @@ def sync_tweets(twitter_username, rss_bridge_instance, mastodon_access_token, ma
                 post_status(mast, status, media_ids)
                 latest_synced_id = post_id
 
-    store_latest_id(latest_synced_id)
-    print("All synced")
+    if not is_test_run:
+        store_latest_id(latest_synced_id)
+        print("All synced")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
